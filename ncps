@@ -1,0 +1,24 @@
+$listener = [System.Net.Sockets.TcpListener]::new(4444)
+$listener.Start()
+$client = $listener.AcceptTcpClient()
+$stream = $client.GetStream()
+$writer = New-Object System.IO.StreamWriter($stream)
+$writer.AutoFlush = $true
+$reader = New-Object System.IO.StreamReader($stream)
+
+try {
+    while ($true) {
+        $command = Read-Host "PS>"
+        if ($command -eq "exit") { break }
+        $writer.WriteLine($command)
+
+        Start-Sleep -Milliseconds 200  # 给客户端时间处理
+        if ($reader.Peek() -eq -1) { break }  # 处理断开问题
+        Write-Host ($reader.ReadLine())
+    }
+} catch {
+    Write-Host "Error: $_"
+} finally {
+    $client.Close()
+    $listener.Stop()
+}

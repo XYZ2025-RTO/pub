@@ -18,4 +18,4 @@ Add-MpPreference -ExclusionPath "C:\Users\Public\Downloads\"
 "%ProgramFiles%\Windows Defender\MpCmdRun.exe" -RemoveDefinitions -All
 
 
-Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match "vv0131"}
+Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match "vxxxx"}

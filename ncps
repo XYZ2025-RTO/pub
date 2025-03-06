@@ -21,3 +21,23 @@ Add-MpPreference -ExclusionPath "C:\Users\Public\Downloads\"
 Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match "vxxxx"}
 
 Get-ForestDomain -Verbose | Get-DomainTrust | ?{$_.TrustAttributes -eq 'FILTER_SIDS'}
+
+Get-NetGPO | Where-Object { $_.displayName -match "Login" } | Select-Object -ExpandProperty displayName
+
+Get-NetGPO | Where-Object { $_.displayName -match "logon|login|security|password|authentication" } | Select-Object -ExpandProperty displayName
+
+Get-NetGPO | Where-Object { $_.displayName -match "logon|security" } | Select-Object displayName, gPCFileSysPath
+
+
+type "\\domain.com\SYSVOL\domain.com\Policies\{GPO-GUID}\Machine\Microsoft\Windows NT\SecEdit\GptTmpl.inf"
+
+SeInteractiveLogonRight        ; 允许交互式登录的用户
+SeDenyNetworkLogonRight        ; 拒绝网络登录的用户
+SeRemoteInteractiveLogonRight  ; 允许 RDP 登录的用户
+MinimumPasswordLength          ; 最小密码长度
+MaximumPasswordAge             ; 密码最大使用时间
+
+Get-NetGPOGroup | Where-Object { $_.displayName -match "logon|security" }
+
+
+

@@ -19,3 +19,5 @@ Add-MpPreference -ExclusionPath "C:\Users\Public\Downloads\"
 
 
 Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match "vxxxx"}
+
+Get-ForestDomain -Verbose | Get-DomainTrust | ?{$_.TrustAttributes -eq 'FILTER_SIDS'}

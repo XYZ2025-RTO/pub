@@ -26,6 +26,13 @@ Get-NetGPO | Where-Object { $_.displayName -match "Login" } | Select-Object -Exp
 
 Get-NetGPO | Where-Object { $_.displayName -match "logon|login|security|password|authentication" } | Select-Object -ExpandProperty displayName
 
+
+
+
+
+Get-DomainOU | Get-DomainObjectAcl -ResolveGUIDs | Where -Object {($_.ObjectAceType -like 'ms-Mcs-AdmPwd') -and ($_.ActiveDirectoryRights -match 'ReadProperty')} | ForEach-Object {$_ | Add -Member NoteProperty 'IdentityName' $(Convert-SidToName 
+$_.SecurityIdentifier);$_} 
+
 Get-NetGPO | Where-Object { $_.displayName -match "logon|security" } | Select-Object displayName, gPCFileSysPath
 
 
